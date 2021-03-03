@@ -1,3 +1,14 @@
+# Would You Rather Game App
+
+This is the final template for the final assessment project for Udacity's React Redux course. 
+
+## TL;DR
+
+To get started developing right away:
+
+* install all project dependencies with `npm install`
+* start the development server with `npm start`
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
