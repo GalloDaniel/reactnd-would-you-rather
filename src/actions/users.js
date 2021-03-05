@@ -1,5 +1,5 @@
 import { saveQuestionAnswer } from '../utils/api'
-import { addAnswerToQuestion } from './questions'
+import { addAnswerQuestion } from './questions'
 
 export const RECEIVE_USERS = 'RECEIVE_USERS'
 export const ADD_ANSWER_TO_USER = 'ADD_ANSWER_TO_USER'
@@ -21,13 +21,13 @@ function addAnswerToUser(authUser, qid, answer) {
   }
 }
 
-export function handleSaveQuestionAnswer(authUser, qid, answer) {
+export function handleSaveAnswer(authUser, qid, answer) {
   return dispatch => {
     dispatch(addAnswerToUser(authUser, qid, answer))
-    dispatch(addAnswerToQuestion(authUser, qid, answer))
+    dispatch(addAnswerQuestion(authUser, qid, answer))
 
     return saveQuestionAnswer(authUser, qid, answer).catch(e => {
-      console.warn('Error in handleSaveQuestionAnswer:', e)
+      console.warn('Error in handleSaveAnswer:', e)
     })
   }
 }

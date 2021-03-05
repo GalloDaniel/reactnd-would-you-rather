@@ -1,25 +1,12 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import {
-  Segment,
-  Header,
-  Grid,
-  Divider,
-  Form,
-  Dimmer,
-  Loader
-} from 'semantic-ui-react'
+import { Segment, Header, Grid, Divider, Form, Dimmer, Loader } from 'semantic-ui-react'
 import { handleSaveQuestion } from '../actions/questions'
 
-export class NewQuestion extends Component {
-  static propTypes = {
-    authUser: PropTypes.string.isRequired,
-    handleSaveQuestion: PropTypes.func.isRequired
-  }
+export class NewQuestion extends Component {  
   state = {
-    validSubmit: false,
+    Submit: false,
     isLoading: false,
     option1: '',
     option2: ''
@@ -41,13 +28,13 @@ export class NewQuestion extends Component {
         option1: '',
         option2: ''
       })
-      this.setState({ validSubmit: true })
+      this.setState({ Submit: true })
     })
   }
   render() {
     const disabled = this.state.option1 === '' || this.state.option2 === ''
 
-    if (this.state.validSubmit === true) {
+    if (this.state.Submit === true) {
       return <Redirect to="/" />
     }
     return (

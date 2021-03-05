@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import Login from './Login'
 import Nav from './Nav'
 import Home from './Home'
-import UserCard from './UserCard'
+import Question from './Question'
 import NewQuestion from './NewQuestion'
 import Leaderboard from './Leaderboard'
 import NoMatch from './NoMatch'
@@ -34,8 +34,8 @@ class App extends Component {
               <ContentGrid>
                 <Switch>
                   <Route exact path="/" component={Home} />
-                  <Route path="/questions/bad_id" component={NoMatch} />
-                  <Route path="/questions/:question_id" component={UserCard} />
+                  <Route path="/questions/error" component={NoMatch} />
+                  <Route path="/questions/:question_id" component={Question} />
                   <Route path="/add" component={NewQuestion} />
                   <Route path="/leaderboard" component={Leaderboard} />
                   <Route component={NoMatch} />
@@ -52,7 +52,7 @@ class App extends Component {
 const ContentGrid = ({ children }) => (
   <Grid padded="vertically" columns={1} centered>
     <Grid.Row>
-      <Grid.Column style={{ maxWidth: 550 }}>{children}</Grid.Column>
+      <Grid.Column style={{ maxWidth: 600 }}>{children}</Grid.Column>
     </Grid.Row>
   </Grid>
 )

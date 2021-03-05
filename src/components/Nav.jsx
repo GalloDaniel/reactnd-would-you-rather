@@ -1,13 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
-import {
-  Menu,  
-  Image,
-  Grid,
-  Button,
-  Container
-} from 'semantic-ui-react'
+import { Menu, Image, Grid, Button, Container, Icon} from 'semantic-ui-react'
 import { setAuthUser } from '../actions/authUser'
 
 class Nav extends Component {
@@ -22,29 +16,24 @@ class Nav extends Component {
     return (
       <Container>
         <Fragment>
-          <Grid columns={2} padded="vertically">
+          <Grid columns={1} padded="vertically">
             <Grid.Row>
-              <Grid.Column>
+              <Grid.Column textAlign="right">
                 <Image
                   src={users[authUser].avatarURL}
                   avatar
                   spaced="right"
                   verticalAlign="bottom"
                 />
-                {users[authUser].name}
+                {`${users[authUser].name}  `}
+                <Button animated onClick={this.handleLogout}>
+                  <Button.Content visible>Logout</Button.Content>
+                  <Button.Content hidden>
+                  <Icon name='log out' />
+                  </Button.Content>                
+                </Button>
               </Grid.Column>
-              <Grid.Column verticalAlign="bottom" textAlign="right">
-                <Button
-                  content="Logout"
-                  labelPosition="right"
-                  basic
-                  compact
-                  icon="log out"
-                  size="mini"
-                  onClick={this.handleLogout}
-                />
-              </Grid.Column>
-            </Grid.Row>
+            </Grid.Row>          
             <Grid.Row>
               <Grid.Column width={16}>
                 <Menu pointing secondary widths={3}>

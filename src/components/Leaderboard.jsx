@@ -1,32 +1,34 @@
 import React, { Component, Fragment } from 'react'
-import PropType from 'prop-types'
 import { connect } from 'react-redux'
-import {
-  Segment,
-  Grid,
-  Header,
-  Image,
-  Label,
-  Divider
-} from 'semantic-ui-react'
+import { Segment, Grid, Header, Image, Label, Divider } from 'semantic-ui-react'
 
-const trophyColor = ['yellow', 'grey', 'orange']
 
 export class Leaderboard extends Component {
-  static propType = {
-    leaderboardData: PropType.array.isRequired
-  }
-  render() {
-    const { leaderboardData } = this.props
+
+  render() {    
+    const color = ['yellow', 'grey', 'orange']
+    const { users } = this.props
+
+    const lData  = Object.values(users).map(user => ({
+      id: user.id,
+      name: user.name,
+      avatarURL: user.avatarURL,
+      answeredQuestions: Object.values(user.answers).length,
+      createdQuestions: user.questions.length,
+      total: Object.values(user.answers).length + user.questions.length
+       }))
+      .sort((a, b) => a.total - b.total)
+      .reverse()
+      .slice(0, 3)   
 
     return (
-      <Fragment>
-        {leaderboardData.map((user, idx) => (
+      <div>
+        {lData.map((user, id) => (
           <Segment.Group key={user.id}>
-            <Label corner="left" icon="trophy" color={trophyColor[idx]} />
+            <Label corner="left" icon="trophy" color={color[id]} />
             <Grid divided padded>
               <Grid.Row>
-                <Grid.Column width={4} verticalAlign="middle">
+                <Grid.Column width={4}>
                   <Image src={user.avatarURL} />
                 </Grid.Column>
                 <Grid.Column width={8}>
@@ -35,20 +37,20 @@ export class Leaderboard extends Component {
                   </Header>
                   <Grid>
                     <Grid.Column width={12}>Answered questions</Grid.Column>
-                    <Grid.Column width={4}>{user.answerCount}</Grid.Column>
+                    <Grid.Column width={4}>{user.answeredQuestions}</Grid.Column>
                   </Grid>
                   <Divider />
                   <Grid>
                     <Grid.Column width={12}>Created questions</Grid.Column>
-                    <Grid.Column width={4}>{user.questionCount}</Grid.Column>
+                    <Grid.Column width={4}>{user.createdQuestions}</Grid.Column>
                   </Grid>
                 </Grid.Column>
                 <Grid.Column width={4} textAlign="center">
                   <Segment.Group>
-                    <Header as="h5" block attached="top" content="Score" />
+                    <Header as="h4" block attached="top" content="Score" />
                     <Segment>
                       <Label circular color="green" size="big">
-                        {user.questionCount + user.answerCount}
+                        {user.createdQuestions + user.answeredQuestions}
                       </Label>
                     </Segment>
                   </Segment.Group>
@@ -57,26 +59,14 @@ export class Leaderboard extends Component {
             </Grid>
           </Segment.Group>
         ))}
-      </Fragment>
+      </div>
     )
   }
 }
 
 function mapStateToProps({ users }) {
-  const leaderboardData = Object.values(users)
-    .map(user => ({
-      id: user.id,
-      name: user.name,
-      avatarURL: user.avatarURL,
-      answerCount: Object.values(user.answers).length,
-      questionCount: user.questions.length,
-      total: Object.values(user.answers).length + user.questions.length
-    }))
-    .sort((a, b) => a.total - b.total)
-    .reverse()
-    .slice(0, 3)
   return {
-    leaderboardData
+    users
   }
 }
 
