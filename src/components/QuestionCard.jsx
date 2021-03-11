@@ -65,8 +65,8 @@ export class QuestionCard extends Component {
   }
 }
 
-function mapStateToProps ({ users, questions }, { question_id }) {
-  let question = questions[question_id]
+function mapStateToProps ({ users, questions }, { questionId }) {
+  let question = questions[questionId]
   let author = users[question.author]
   return {
     author,

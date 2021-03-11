@@ -22,8 +22,12 @@ export class Question extends Component {
 
   render() {
     const { question, author, ansewedQuestion, authUser, users } = this.props
-    const disabled = this.state.value === '' ? true : false    
-
+    const disabled = this.state.value === '' ? true : false 
+    
+    if (question === undefined) {
+      return <h3>404 - Not found</h3>
+    }  
+    
     return (      
       <SegmentGroup>        
         <Header
@@ -85,15 +89,20 @@ export class Question extends Component {
 }
 
 function mapStateToProps({ authUser, questions, users }, { match }) {
-  const { question_id } = match.params
-  const question = questions[question_id]
-  const author = users[questions[question_id].author]
+  const { questionId } = match.params
+  const question = questions[questionId] ? questions[questionId] : undefined
+
+  if (question === undefined) {
+    return question 
+  }  
+
+  const author = users[questions[questionId].author]
   const user = users[authUser]
   let ansewedQuestion = false
 
-  if (Object.keys(user.answers).includes(question_id)) {
+  if (Object.keys(user.answers).includes(questionId)) {
     ansewedQuestion = true
-  }
+  } 
 
   return {
     authUser,
@@ -104,7 +113,4 @@ function mapStateToProps({ authUser, questions, users }, { match }) {
   }
 }
 
-export default connect(
-  mapStateToProps,
-  { handleSaveAnswer }
-)(Question)
+export default connect(mapStateToProps,{ handleSaveAnswer })(Question)

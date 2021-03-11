@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Segment, Grid, Header, Image, Label, Divider } from 'semantic-ui-react'
 

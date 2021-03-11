@@ -22,7 +22,7 @@ const panes = props => {
           {userQuestionData.answered.map(question => (
               <QuestionCard
                 key={question.id}
-                question_id={question.id}                
+                questionId={question.id}                
                 unanswered={true}                
               />
           ))}
@@ -36,7 +36,7 @@ const panes = props => {
           {userQuestionData.unanswered.map(question => (
             <QuestionCard
               key={question.id}
-              question_id={question.id}              
+              questionId={question.id}              
               unanswered={false}
             />
           ))}
